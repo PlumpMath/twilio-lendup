@@ -44,9 +44,9 @@ router.post('/recall', function (req, res) {
 });
 
 router.post('/start_call', function (req, res) {
-    var when = human(req.param(['when']))
+    var when = human(req.param(['when']));
     c = new Call({
-        started: Date.now,
+        started: Date.now(),
         to: req.param(['number']),
         from: number,
         status: 'queueed',
