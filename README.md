@@ -6,6 +6,10 @@ TWILIO_AUTH_TOKEN="YOUR AUTH TOKEN"
 MONGOHQ_URL="A mongo database"
 Then run bin/www
 
+if you install http://orchardup.github.io/fig/ you should also be able to run `fig up` (though that is untested at the
+moment)
+
+
 Quick summary of what is done
 
 You can make calls to a number
