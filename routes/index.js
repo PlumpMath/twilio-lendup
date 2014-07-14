@@ -3,7 +3,7 @@ var twilio = require('twilio');
 var chrono = require('chrono-node');
 var schedule = require('node-schedule');
 var mongoose = require('mongoose');
-var call = require('../lib/call');
+var Call = require('../lib/call').Call;
 
 
 var router = express.Router();
@@ -14,7 +14,7 @@ var number = process.env.PHONE_NUM || '+15097403508';
 /* GET home page. */
 
 router.get('/', function (req, res) {
-    call.Call.find(function (err, cs) {
+    Call.find(function (err, cs) {
         if (err) {
             cs = [];
         }
@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
 });
 
 router.post('/recall', function (req, res) {
-    call.Call.findOne({sid: req.param(["sid"])}).exec(function (err, call) {
+    Call.findOne({sid: req.param(["sid"])}).exec(function (err, call) {
         var promise = tclient.makeCall({
             to: call.to,
             from: call.from,

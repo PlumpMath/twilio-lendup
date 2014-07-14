@@ -9,7 +9,7 @@ var _ = require('underscore'),
     twilio = require('twilio'),
     fb = require('../lib/fizzBuzz'),
     mongoose = require('mongoose'),
-    call = require('../lib/call');
+    Call = require('../lib/call').Call;
 
 
 var opts = {
