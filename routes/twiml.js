@@ -36,7 +36,8 @@ router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
     var twiml = new twilio.TwimlResponse()
 
     Call.findOneAndUpdate({ sid: req.param(["CallSid"])},
-        {number_request: parseInt(req.param(['Digits']))},
+        {number_request: parseInt(req.param(['Digits'])),
+            status: 'Finished'},
         function () {
         });
 

@@ -1,0 +1,17 @@
+web:
+  build: .
+  ports:
+    - 80:80
+  environment:
+    MONGOHQ_URL:        mongodb://heroku:oEpjaziMVKXLFUpY_uUYQ5jrXKRmMiFKn9OHqDMDiEy.mongohq.com:10071/app27402674
+    TWILIO_ACCOUNT_SID: AC6092670b0becc795cdcf73e7d6f4ba98
+    TWILIO_AUTH_TOKEN:  ee2d090104b57bf9e9cb8c184b67ebac
+    env:                development
+    PORT:               80
+  links:
+    - mongo
+
+mongo:
+  image: orchardup/mongodb
+  port:
+    27017:27017

@@ -35,8 +35,8 @@ router.post('/recall', function (req, res) {
             res.send('Call success Call SID: ' + call.sid);
             console.log('Call success Call SID: ' + call.sid);
         }, function (error) {
-            res.send('Shitbroke: ' + error.toString());
-            console.log('shitbroke: ' + error.toString());
+            res.send('Error: ' + error.toString());
+            console.log('Error: ' + error.toString());
         });
     });
 });
@@ -47,7 +47,7 @@ router.post('/start_call', function (req, res) {
         started: Date.now(),
         to: req.param(['number']),
         from: number,
-        status: 'queueed',
+        status: 'queued',
         when: when
     });
     c.save();

@@ -1,3 +1,11 @@
+To Deploy
+export
+PHONE_NUM="YOUR TWILIO NUMBER"
+TWILIO_ACCOUNT_SID="YOUR ACCOUNT SID"
+TWILIO_AUTH_TOKEN="YOUR AUTH TOKEN"
+MONGOHQ_URL="A mongo database"
+Then run bin/www
+
 Quick summary of what is done
 
 You can make calls to a number
