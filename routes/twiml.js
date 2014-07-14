@@ -7,7 +7,11 @@ var _ = require('underscore'),
     express = require('express'),
     router = express.Router(),
     twilio = require('twilio'),
-    fb = require('../lib/fizzBuzz');
+    fb = require('../lib/fizzBuzz'),
+    mongoose = require('mongoose'),
+    call = require('../lib/call');
+
+mongoose.connect(process.env.MONGOHQ_URL);
 
 var opts = {
     host: 'twilio-lendup.herokuapp.com',
@@ -39,6 +43,11 @@ router.post('/text', twilio.webhook({
 
 router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
     var twiml = new twilio.TwimlResponse();
+
+    Call.findOne({ sid: req.param(["CallSid"])}).exec(function (err, call) {
+        call.number_requested = parseInt(req.param(["Digits"]));
+    });
+
     _.each(fb.fizzBuzz(parseInt(req.param(["Digits"]))), function (item) {
         twiml.say(item.toString());
     });

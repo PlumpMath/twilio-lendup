@@ -3,6 +3,8 @@ var twilio = require('twilio');
 var chrono = require('chrono-node');
 var schedule = require('node-schedule');
 var mongoose = require('mongoose');
+var call = require('../lib/call');
+
 mongoose.connect(process.env.MONGOHQ_URL);
 
 var router = express.Router();
@@ -12,16 +14,8 @@ var tclient = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.
 var number = process.env.PHONE_NUM || '+15097403508';
 /* GET home page. */
 
-var Call = mongoose.model('Call',
-    {to: String,
-        from: String,
-        when: Date,
-        sid: String,
-        number_requested: String,
-        status: String });
-
 router.get('/', function (req, res) {
-    Call.find(function (err, cs) {
+    call.Call.find(function (err, cs) {
         if (err) {
             cs = [];
         }
@@ -32,12 +26,31 @@ router.get('/', function (req, res) {
     });
 });
 
+router.post('/recall', function (req, res) {
+    call.Call.findOne({sid: req.param(["sid"])}).exec(function (err, call) {
+        var promise = tclient.makeCall({
+            to: call.to,
+            from: call.from,
+            url: 'https://twilio-lendup.herokuapp.com/twiml/fizzbuzz_call?digits=' + call.number_requested
+        });
+
+        promise.then(function (call) {
+            res.send('Call success Call SID: ' + call.sid);
+            console.log('Call success Call SID: ' + call.sid);
+        }, function (error) {
+            res.send('Shitbroke: ' + error.toString());
+            console.log('shitbroke: ' + error.toString());
+        });
+    });
+});
+
 router.post('/start_call', function (req, res) {
     var when = chrono.parseDate(req.param(['when']));
     c = new Call({
         to: req.param(['number']),
         from: number,
-        status: 'queueed'
+        status: 'queueed',
+        when: when
     });
     c.save();
 
