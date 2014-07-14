@@ -6,7 +6,8 @@
 var _ = require('underscore'),
     express = require('express'),
     router = express.Router(),
-    twilio = require('twilio');
+    twilio = require('twilio'),
+    fb = require('../lib/fizzbuzz');
 
 var opts = {
     host: 'twilio-lendup.herokuapp.com',
@@ -15,7 +16,9 @@ var opts = {
 
 router.post('/call', twilio.webhook(opts), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    twiml.message("This is a test message");
+    _.each(fb.fizzBuzz(10), function (item) {
+        twiml.message(item);
+    });
     res.send(twiml);
 });
 
@@ -24,7 +27,9 @@ router.post('/text', twilio.webhook({
     validate: false
 }), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    twiml.message("This is a test message");
+    _.each(fb.fizzBuzz(16), function (item) {
+        twiml.message(item.toString());
+    });
     res.send(twiml);
 });
 
