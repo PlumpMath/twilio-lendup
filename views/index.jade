@@ -1,5 +1,30 @@
 extends layout
 
+
 block content
-    h1= title
-    p Welcome to #{title}
+    h1= FizzBuzzer
+    p Welcome to the fizzBuzzer
+    form(name="call", action="/start_call", method="post")
+        div
+            label Number to fizz xxxxxxxxxx
+            input(type="text", name="number")
+        div
+            lable When to fizz  (any thing that works with this github.com/wanasit/chrono)
+            input(type="text", name="when")
+        input(type="submit")
+    table
+        tr
+            th To
+            th From
+            th When
+            th Sid
+            th Number Requested
+            th Status
+        tr
+            each val in calls
+                td= val.to
+                td= val.from
+                td= val.when
+                td= val.sid
+                td= val.number_requested
+                td= val.status

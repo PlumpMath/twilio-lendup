@@ -22,9 +22,8 @@ router.post('/call', twilio.webhook(opts), function (req, res) {
             action: root_host + '/fizzbuzz_call',
             finishOnKey: '*'
         }, function () {
-            this.say('please enter the number you wish to fizzbuzz to')
+            this.say('please enter the number you wish to fizzbuzz to and then press *')
         });
-
     res.send(twiml);
 });
 
@@ -32,12 +31,8 @@ router.post('/text', twilio.webhook({
     validate: false
 }), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    twiml.message("Welcome to the fizzbuzzer of fizz goodness")
-        .gather({
-            action: root_host + '/fizzbuzz_text'
-        }, function () {
-            this.message('please enter the number you wish to fizzbuzz to')
-        });
+    twiml.message("enter the number of times you want to fizzbuzz");
+    twiml.redirect(root_host + '/fizzbuzz_text');
     res.send(twiml);
 });
 
