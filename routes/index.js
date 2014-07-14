@@ -1,6 +1,6 @@
 var express = require('express');
 var twilio = require('twilio');
-var chrono = require('chrono-node');
+var human = require('human-interval');
 var schedule = require('node-schedule');
 var mongoose = require('mongoose');
 var Call = require('../lib/call').Call;
@@ -44,8 +44,9 @@ router.post('/recall', function (req, res) {
 });
 
 router.post('/start_call', function (req, res) {
-    var when = chrono.parseDate(req.param(['when']), Date.now());
+    var when = humanInterval(req.param(['when']))
     c = new Call({
+        started: Date.now,
         to: req.param(['number']),
         from: number,
         status: 'queueed',

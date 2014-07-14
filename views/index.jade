@@ -12,6 +12,7 @@ block content
             lable When to fizz  (any thing that works with this github.com/wanasit/chrono)
             input(type="text", name="when")
         input(type="submit")
+
     form(name="recall", action="/recall", method="post")
     table
         tr
@@ -23,6 +24,7 @@ block content
             th Status
         each val in calls
             tr
+                td= val.started
                 td= val.to
                 td= val.from
                 td= val.when
