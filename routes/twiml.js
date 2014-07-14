@@ -30,14 +30,6 @@ router.post('/call', twilio.webhook(opts), function (req, res) {
     res.send(twiml);
 });
 
-router.post('/text', twilio.webhook({
-    validate: false
-}), function (req, res) {
-    var twiml = new twilio.TwimlResponse();
-    twiml.message("enter the number of times you want to fizzbuzz");
-    twiml.redirect(root_host + '/fizzbuzz_text');
-    res.send(twiml);
-});
 
 
 router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
@@ -54,19 +46,11 @@ router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
 });
 
 
-router.post('/fizzbuzz_text', twilio.webhook(opts), function (req, res) {
-    var twiml = new twilio.TwimlResponse();
-    _.each(fb.fizzBuzz(parseInt(req.param(["Body"]))), function (item) {
-        twiml.message(item.toString());
-    });
-    res.send(twiml);
-});
-
 router.post('/fallback', twilio.webhook({
     validate: false
 }), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    twiml.message("OHHH NOES THE THINGS HAVE BROKEN!!!");
+    twiml.say("OHHH NOES THE THINGS HAVE BROKEN!!!");
     res.send(twiml);
 });
 

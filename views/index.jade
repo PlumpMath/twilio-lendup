@@ -21,8 +21,8 @@ block content
             th Sid
             th Number Requested
             th Status
-        tr
-            each val in calls
+        each val in calls
+            tr
                 td= val.to
                 td= val.from
                 td= val.when
