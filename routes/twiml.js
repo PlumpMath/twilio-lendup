@@ -13,24 +13,45 @@ var opts = {
     host: 'twilio-lendup.herokuapp.com',
     protocol: 'https'
 };
+var root_host = 'https://twilio-lendup.herokuapp.com/twiml';
 
 router.post('/call', twilio.webhook(opts), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    _.each(fb.fizzBuzz(10), function (item) {
-        twiml.message(item);
-    });
+    twiml.say("Welcome to the fizzbuzzer of fizz goodness")
+        .gather({
+            action: root_host + '/fizzbuzz_call'
+        }, function () {
+            this.say('please enter the number you wish to fizzbuzz to')
+        });
+
     res.send(twiml);
 });
-
 
 router.post('/text', twilio.webhook({
     validate: false
 }), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    _.each(fb.fizzBuzz(16), function (item) {
-        twiml.message(item.toString());
-    });
+    twiml.say("Welcome to the fizzbuzzer of fizz goodness")
+        .gather({
+            action: root_host + '/fizzbuzz_call'
+        }, function () {
+            this.say('please enter the number you wish to fizzbuzz to')
+        });
     res.send(twiml);
+});
+
+
+router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
+    _.each(fb.fizzBuzz(10), function (item) {
+        twiml.message(item);
+    });
+});
+
+
+router.post('/fizzbuzz_text', twilio.webhook(opts), function (req, res) {
+    _.each(fb.fizzBuzz(10), function (item) {
+        twiml.message(item);
+    });
 });
 
 router.post('/fallback', twilio.webhook({
