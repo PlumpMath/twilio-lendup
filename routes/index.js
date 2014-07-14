@@ -52,7 +52,7 @@ router.post('/start_call', function (req, res) {
     });
     c.save();
 
-    setInterval(function () {
+    setTimeout(function () {
         var promise = tclient.makeCall({
             to: req.param(['number']),
             from: number,
