@@ -8,7 +8,9 @@ var _ = require('underscore'),
     router = express.Router(),
     twilio = require('twilio');
 
-var opts = { host: 'twilio-lendup.herokuapp.com',
+var opts = {
+    validate: false,
+    host: 'twilio-lendup.herokuapp.com',
     protocol: 'https'};
 
 router.post('/call', twilio.webhook(opts, function (req, res) {
