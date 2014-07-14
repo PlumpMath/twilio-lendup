@@ -4,6 +4,8 @@
  * Created by Eric on 7/13/2014.
  */
 var fb = require('../lib/fizzBuzz');
+//noinspection JSUnusedGlobalSymbols
+var should = require('should');
 
 describe("#fizzBuzzify", function () {
     it('should return the number when the number is not a multiple of 3 or 5', function () {
