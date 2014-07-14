@@ -3,7 +3,7 @@
  * Tests for fizzbuzzer
  * Created by Eric on 7/13/2014.
  */
-var fb = require('../lib/fizzBuzz');
+var fb = require('../lib/fizzbuzz');
 //noinspection JSUnusedGlobalSymbols
 var should = require('should');
 describe("fizzbuzz", function () {
