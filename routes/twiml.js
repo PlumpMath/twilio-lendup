@@ -19,7 +19,8 @@ router.post('/call', twilio.webhook(opts), function (req, res) {
     var twiml = new twilio.TwimlResponse();
     twiml.say("Welcome to the fizzbuzzer of fizz goodness")
         .gather({
-            action: root_host + '/fizzbuzz_call'
+            action: root_host + '/fizzbuzz_call',
+            finishOnKey: '*'
         }, function () {
             this.say('please enter the number you wish to fizzbuzz to')
         });
@@ -31,27 +32,31 @@ router.post('/text', twilio.webhook({
     validate: false
 }), function (req, res) {
     var twiml = new twilio.TwimlResponse();
-    twiml.say("Welcome to the fizzbuzzer of fizz goodness")
+    twiml.message("Welcome to the fizzbuzzer of fizz goodness")
         .gather({
-            action: root_host + '/fizzbuzz_call'
+            action: root_host + '/fizzbuzz_text'
         }, function () {
-            this.say('please enter the number you wish to fizzbuzz to')
+            this.message('please enter the number you wish to fizzbuzz to')
         });
     res.send(twiml);
 });
 
 
 router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
-    _.each(fb.fizzBuzz(10), function (item) {
-        twiml.message(item);
+    var twiml = new twilio.TwimlResponse();
+    _.each(fb.fizzBuzz(parseInt(req.param(["Digits"]))), function (item) {
+        twiml.say(item.toString());
     });
+    res.send(twiml);
 });
 
 
 router.post('/fizzbuzz_text', twilio.webhook(opts), function (req, res) {
-    _.each(fb.fizzBuzz(10), function (item) {
-        twiml.message(item);
+    var twiml = new twilio.TwimlResponse();
+    _.each(fb.fizzBuzz(parseInt(req.param(["Body"]))), function (item) {
+        twiml.message(item.toString());
     });
+    res.send(twiml);
 });
 
 router.post('/fallback', twilio.webhook({
