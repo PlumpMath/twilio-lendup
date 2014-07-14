@@ -9,19 +9,18 @@ var _ = require('underscore'),
     twilio = require('twilio')
 
 var opts = { host: 'https://twilio-lendup.herokuapp.com'};
-var auth_token = process.env.AUTH_KEY;
 
 router.post('/call', twilio.webhook(opts, function (req, res) {
     var twiml = new twilio.TwimlResponse();
-        twiml.message("This is a test message");
-        res.send(twiml);
+    twiml.message("This is a test message");
+    res.send(twiml);
 }));
 
 
 router.post('/text', twilio.webhook(opts, function (req, res) {
     var twiml = new twilio.TwimlResponse();
-        twiml.message("This is a test message");
-        res.send(twiml);
+    twiml.message("This is a test message");
+    res.send(twiml);
 }));
 
 
