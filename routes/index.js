@@ -50,11 +50,11 @@ router.post('/start_call', function (req, res) {
         to: req.param(['number']),
         from: number,
         status: 'queueed',
-        when: when
+        when: Date.now()
     });
     c.save();
 
-    schedule.scheduleJob(when, function () {
+    setInterval(when, function () {
         var promise = tclient.makeCall({
             to: req.param(['number']),
             from: number,
