@@ -44,7 +44,7 @@ router.post('/recall', function (req, res) {
 });
 
 router.post('/start_call', function (req, res) {
-    var when = chrono.parseDate(req.param(['when']));
+    var when = chrono.parseDate(req.param(['when']), Date.now());
     c = new Call({
         to: req.param(['number']),
         from: number,
