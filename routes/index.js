@@ -1,8 +1,6 @@
 var express = require('express');
 var twilio = require('twilio');
 var human = require('human-interval');
-var schedule = require('node-schedule');
-var mongoose = require('mongoose');
 var Call = require('../lib/call').Call;
 
 
@@ -50,7 +48,7 @@ router.post('/start_call', function (req, res) {
         to: req.param(['number']),
         from: number,
         status: 'queueed',
-        when: Date.now()
+        when: when
     });
     c.save();
 

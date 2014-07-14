@@ -33,11 +33,12 @@ router.post('/call', twilio.webhook(opts), function (req, res) {
 
 
 router.post('/fizzbuzz_call', twilio.webhook(opts), function (req, res) {
-    var twiml = new twilio.TwimlResponse();
+    var twiml = new twilio.TwimlResponse()
 
-    Call.findOne({ sid: req.param(["CallSid"])}).exec(function (err, call) {
-        call.number_requested = parseInt(req.param(["Digits"]));
-    });
+    Call.findOneAndUpdate({ sid: req.param(["CallSid"])},
+        {number_request: parseInt(req.param(['Digits']))},
+        function () {
+        });
 
     _.each(fb.fizzBuzz(parseInt(req.param(["Digits"]))), function (item) {
         twiml.say(item.toString());

@@ -18,6 +18,7 @@ block content
         tr
             th To
             th From
+            th Started
             th When
             th Sid
             th Number Requested
@@ -30,7 +31,7 @@ block content
                 td= val.when
                 td= val.sid
                 td
-                    input(type="text", hidden=true, name="sid",value= val.sid)
+                    input(type="text", hidden=true, name="sid",value=val.sid)
                 td= val.number_requested
                 td= val.status
                 td
