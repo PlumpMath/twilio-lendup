@@ -16,6 +16,8 @@ router.post('/call', function (req, res) {
         var twiml = new twilio.TwimlResponse();
         twiml.message("This is a test message");
         res.send(twiml);
+    } else {
+        res.render('Herp derp')
     }
 });
 
@@ -25,6 +27,8 @@ router.post('/text', function (req, res) {
         var twiml = new twilio.TwimlResponse();
         twiml.message("This is a test message");
         res.send(twiml);
+    } else {
+        res.render('Herp derps')
     }
 });
 
