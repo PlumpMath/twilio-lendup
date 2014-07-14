@@ -7,7 +7,7 @@ var _ = require('underscore'),
     express = require('express'),
     router = express.Router(),
     twilio = require('twilio'),
-    fb = require('../lib/fizzbuzz');
+    fb = require('../lib/fizzBuzz');
 
 var opts = {
     host: 'twilio-lendup.herokuapp.com',
