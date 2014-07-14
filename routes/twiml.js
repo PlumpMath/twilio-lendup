@@ -11,7 +11,7 @@ var _ = require('underscore'),
 var opts = { host: 'https://twilio-lendup.herokuapp.com'};
 var auth_token = process.AUTH_KEY;
 
-router.post('/call', function (req, res) {
+router.post('/twiml/call', function (req, res) {
     if (twilio.validateExpressRequest(req, auth_token, opts)) {
         var twiml = new twilio.TwimlResponse();
         twiml.message("This is a test message");
@@ -20,7 +20,7 @@ router.post('/call', function (req, res) {
 });
 
 
-router.post('/text', function (req, res) {
+router.post('/twiml/text', function (req, res) {
     if (twilio.validateExpressRequest(req, auth_token, opts)) {
         var twiml = new twilio.TwimlResponse();
         twiml.message("This is a test message");
