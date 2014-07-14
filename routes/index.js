@@ -34,7 +34,7 @@ router.get('/', function (req, res) {
 
 router.post('/start_call', function (req, res) {
     var when = chrono.parseDate(req.param(['when']));
-    schedule.scheduleJob(when, function () {
+    var j = schedule.scheduleJob(when, function () {
         c = new Call({
             to: req.param(['number']),
             from: number
@@ -51,6 +51,7 @@ router.post('/start_call', function (req, res) {
             c.status = "In progress";
             c.save();
             console.log('Call success! Call SID: ' + call.sid);
+            res.send('req was successful SID: ' + call.sid);
         }, function (error) {
             console.error('Call failed!  Reason: ' + error.message);
             c.status = "Failed" + error.message;
