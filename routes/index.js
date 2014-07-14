@@ -52,23 +52,24 @@ router.post('/start_call', function (req, res) {
     });
     c.save();
 
-    var promise = tclient.makeCall({
-        to: req.param(['number']),
-        from: number,
-        url: 'https://twilio-lendup.herokuapp.com/twiml/call'
-    });
+    setInterval(function () {
+        var promise = tclient.makeCall({
+            to: req.param(['number']),
+            from: number,
+            url: 'https://twilio-lendup.herokuapp.com/twiml/call'
+        });
 
-    promise.then(function (call) {
-        c.sid = call.sid;
-        c.status = "In progress";
-        c.save();
-        console.log('Call success! Call SID: ' + call.sid);
-    }, function (error) {
-        console.error('Call failed!  Reason: ' + error.message);
-        c.status = "Failed" + error.message;
-        c.save();
-    });
-
+        promise.then(function (call) {
+            c.sid = call.sid;
+            c.status = "In progress";
+            c.save();
+            console.log('Call success! Call SID: ' + call.sid);
+        }, function (error) {
+            console.error('Call failed!  Reason: ' + error.message);
+            c.status = "Failed" + error.message;
+            c.save();
+        });
+    }, when);
     res.send("job Queued");
 });
 
