@@ -14,6 +14,21 @@ describe("#fizzBuzzify", function () {
         fb.fizzBuzzify(1).should.equal(1);
         fb.fizzBuzzify(11).should.equal(11);
     });
+
+    it('should return fizz on multiples of 3', function () {
+        fb.fizzBuzzify(3).should.equal('fizz');
+        fb.fizzBuzzify(6).should.equal('fizz');
+    });
+
+    it('should return buzz on multiples of 5', function () {
+        fb.fizzBuzzify(5).should.equal('buzz');
+        fb.fizzBuzzify(10).should.equal('buzz');
+    });
+
+    it('should return fizzbuzz on multiples of 5 and 3', function () {
+        fb.fizzBuzzify(15).should.equal('fizzbuzz');
+        fb.fizzBuzzify(30).should.equal('fizzbuzz');
+    });
 });
 /*
  exports.testFizzBuzzify = function(test){
