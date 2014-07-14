@@ -5,7 +5,6 @@ var schedule = require('node-schedule');
 var mongoose = require('mongoose');
 var call = require('../lib/call');
 
-mongoose.connect(process.env.MONGOHQ_URL);
 
 var router = express.Router();
 var tclient = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -54,7 +53,7 @@ router.post('/start_call', function (req, res) {
     });
     c.save();
 
-    var j = schedule.scheduleJob(when, function () {
+    schedule.scheduleJob(when, function () {
         var promise = tclient.makeCall({
             to: req.param(['number']),
             from: number,

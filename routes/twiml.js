@@ -11,7 +11,6 @@ var _ = require('underscore'),
     mongoose = require('mongoose'),
     call = require('../lib/call');
 
-mongoose.connect(process.env.MONGOHQ_URL);
 
 var opts = {
     host: 'twilio-lendup.herokuapp.com',
